@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="cells">
+        <h5>Пиццы, которые создали другие пользователи</h5>
+        <h3>Каталог</h3>
+        {% if user.is_authenticated %}
+            <a href="" class="btn btn-primary">Создать свою пиццу</a>
+        {% endif %}
+        <div>{{ message }}</div>
+    </div>
+
+{% endblock content %}
