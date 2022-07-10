@@ -1,0 +1,12 @@
+<!-- templates/post_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post-entry">
+        <h2>{{ pizza.name }}</h2>
+        <p>{{ pizza.price }}</p>
+        <p>{{ pizza.weight }}</p>
+        <p>{{ pizza.size }}</p>
+    </div>
+
+{% endblock content %}
