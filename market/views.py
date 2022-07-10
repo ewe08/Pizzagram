@@ -2,7 +2,7 @@ from django.http import request
 from django.shortcuts import redirect
 from django.views import generic
 
-from .models import Pizza, Product
+from .models import *
 
 
 class PizzaListView(generic.ListView):
@@ -26,8 +26,14 @@ class PizzaCreateView(generic.CreateView):
 
     def form_valid(self, form):
         pizza = form.save(commit=False)
-        pizza.price = pizza.size.price + pizza.side.price + pizza.dough.price
-        # pizza.cheese.through.objects.all()
+        pizza.price += pizza.size.price + pizza.side.price + pizza.dough.price
+        pizza.save()
+
+        pizza.price += sum([i.cheese.price for i in pizza.cheese.through.objects.all()])
+        pizza.price += sum([i.sauce.price for i in pizza.sauce.through.objects.all()])
+        pizza.price += sum([i.meat.price for i in pizza.meat.through.objects.all()])
+        pizza.price += sum([i.vegetable.price for i in pizza.vegetable.through.objects.all()])
+
         pizza.save()
 
         prod = Product()
