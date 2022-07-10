@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+    <h1>Точно удалить пиццу?</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>Вы точно хотите удалить пиццу "{{ item.pizza.name }}"?</p>
+      <input type="submit" value="Удалить" class="btn btn btn-outline-danger" />
+    </form>
+{% endblock content %}

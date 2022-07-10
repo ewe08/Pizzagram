@@ -13,10 +13,11 @@
                 <div class="card-body">
                     <p class="card-text">Название: <b>{{ item.pizza }}</b></p>
                     <p class="card-text">Цена: <b>{{ item.pizza.price }}</b></p>
-
-                    <p class="card-text">Лайки: <b>{{ item.likes_count }}</b></p>
                     <p class="card-text">Продаёт: <b>{{ item.creator }}</b></p>
+                    <p class="card-text">Лайки: <b>{{ item.likes_count }}</b></p>
+
                 </div>
+                <a href="{% url 'market:pizza_detail' item.id %}" class="btn btn-outline-info">Подробнее</a>
             </div>
         {% endfor %}
     </div>
