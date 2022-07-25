@@ -1,8 +1,10 @@
-from django.http import request
-from django.shortcuts import redirect
+from django.http import request, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.shortcuts import get_object_or_404
 
+# from .forms import CreateForm
 from .models import *
 
 
@@ -21,17 +23,9 @@ class PizzaCreateView(generic.CreateView):
     fields = ['name', 'size', 'side', 'dough', 'cheese', 'sauce', 'meat', 'vegetable']
 
     def form_valid(self, form):
-        pizza = form.save(commit=False)
-        pizza.price += pizza.size.price + pizza.side.price + pizza.dough.price
+        pizza = form.save()
+        pizza.set_price_pizza()
         pizza.save()
-
-        pizza.price += sum([i.cheese.price for i in pizza.cheese.through.objects.all()])
-        pizza.price += sum([i.sauce.price for i in pizza.sauce.through.objects.all()])
-        pizza.price += sum([i.meat.price for i in pizza.meat.through.objects.all()])
-        pizza.price += sum([i.vegetable.price for i in pizza.vegetable.through.objects.all()])
-
-        pizza.save()
-
         prod = Product()
         prod.pizza = pizza
         prod.creator = self.request.user
